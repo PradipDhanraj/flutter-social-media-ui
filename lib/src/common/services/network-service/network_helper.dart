@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_social_media_ui/src/common/services/network-service/network_enum.dart';
 import 'package:flutter_social_media_ui/src/common/services/network-service/network_typedef.dart';
 import 'package:http/http.dart' as http;
 
-class NetworkHelper {
+abstract class NetworkHelper {
   String concatUrlQP(String url, Map<String, String>? queryParameters) {
     if (url.isEmpty) return url;
     if (queryParameters == null || queryParameters.isEmpty) {
@@ -28,8 +29,8 @@ class NetworkHelper {
       if (response == null || response.body.isEmpty) {
         return onFailureCallBackWithMessage(NetworkResponseErrorType.responseEmpty, 'empty response');
       }
-      var json = jsonDecode(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
+        var json = jsonDecode(response.body);
         if (_isValidResponse(json)) {
           return callBack(json);
         }
@@ -43,6 +44,6 @@ class NetworkHelper {
   }
 
   bool _isValidResponse(json) {
-    return json['statusCode'] != null && json['statusCode'] == 200;
+    return json['statusCode'] != null && json['statusCode'] == HttpStatus.ok;
   }
 }

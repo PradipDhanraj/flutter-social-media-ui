@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
-import 'package:flutter_social_media_ui/src/features/reels/view/reels.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/view/feeds.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
 
 class Home extends StatefulWidget {
@@ -22,9 +22,9 @@ class _HomeState extends State<Home> {
         children: [
           ElevatedButton(
             onPressed: () async {
-              await AppNavigation.navigateTo(Reels.routeName);
+              await AppNavigation.navigateTo(Feeds.routeName);
             },
-            child: const Text('Reels'),
+            child: const Text('Feeds'),
           ),
           ElevatedButton(
             onPressed: () async {

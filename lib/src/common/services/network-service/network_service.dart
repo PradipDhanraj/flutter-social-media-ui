@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 
 enum RequestType { get, put, post }
 
-class NetworkService extends NetworkHelper {
+abstract class NetworkService extends NetworkHelper {
   Client? _mockClient;
   set mockClientSetter(Client mc) {
     if (StaticValues.isMock) {

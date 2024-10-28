@@ -1,4 +1,4 @@
-part of 'reels_bloc.dart';
+part of 'feeds_bloc.dart';
 
 class ReelsState {
   final List<Datum> feedItems;

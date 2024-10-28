@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_media_ui/src/features/reels/bloc/reels_bloc.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 
-class Reels extends StatefulWidget {
-  const Reels({super.key});
+class Feeds extends StatefulWidget {
+  const Feeds({super.key});
   static const routeName = '/reels';
   @override
-  State<Reels> createState() => _ReelsState();
+  State<Feeds> createState() => _FeedsState();
 }
 
-class _ReelsState extends State<Reels> {
+class _FeedsState extends State<Feeds> {
   @override
   void initState() {
-    BlocProvider.of<ReelsBloc>(context).add(LoadsReelsEvent());
+    BlocProvider.of<FeedsBloc>(context).add(LoadsFeedsEvent());
     super.initState();
   }
 
