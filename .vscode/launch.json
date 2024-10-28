@@ -10,7 +10,9 @@
             "type": "dart",
             "args": [
                 "--dart-define",
-                "isMock=true"
+                "isMock=true",
+                "--dart-define",
+                "url=https://api.ulearna.com"
             ]
         }
     ]

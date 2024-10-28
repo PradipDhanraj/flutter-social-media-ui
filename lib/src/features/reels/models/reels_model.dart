@@ -11,37 +11,37 @@ String feedToJson(FeedData data) => json.encode(data.toJson());
 class FeedData {
   int statusCode;
   String message;
-  Data data;
+  Feed feed;
 
   FeedData({
     required this.statusCode,
     required this.message,
-    required this.data,
+    required this.feed,
   });
 
   factory FeedData.fromJson(Map<String, dynamic> json) => FeedData(
         statusCode: json["statusCode"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        feed: Feed.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "statusCode": statusCode,
         "message": message,
-        "data": data.toJson(),
+        "data": feed.toJson(),
       };
 }
 
-class Data {
+class Feed {
   List<Datum> data;
   MetaData metaData;
 
-  Data({
+  Feed({
     required this.data,
     required this.metaData,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Feed.fromJson(Map<String, dynamic> json) => Feed(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         metaData: MetaData.fromJson(json["meta_data"]),
       );

@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 
 enum RequestType { get, put, post }
 
-class NetworkService {
+class NetworkService extends NetworkHelper {
   Client? _mockClient;
   set mockClientSetter(Client mc) {
     if (StaticValues.isMock) {
@@ -55,12 +55,8 @@ class NetworkService {
   }) async {
     try {
       final header = getHeaders;
-      final url0 = NetworkHelper.concatUrlQP(url, queryParam);
-      final response = await _createRequest(
-          requestType: requestType,
-          uri: Uri.parse(url0),
-          headers: header,
-          body: body);
+      final url0 = concatUrlQP(url, queryParam);
+      final response = await _createRequest(requestType: requestType, uri: Uri.parse(url0), headers: header, body: body);
       debugPrint('Response : ${response?.headers}');
       return response;
     } catch (e) {

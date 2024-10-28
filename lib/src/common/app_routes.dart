@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/home/view/home.dart';
+import 'package:flutter_social_media_ui/src/features/reels/bloc/reels_bloc.dart';
+import 'package:flutter_social_media_ui/src/features/reels/reels_repo.dart';
 import 'package:flutter_social_media_ui/src/features/reels/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_controller.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
@@ -26,7 +29,10 @@ class AppRoutes {
         return MaterialPageRoute(
             settings: settings,
             builder: (context) {
-              return const Reels();
+              return BlocProvider(
+                create: (context) => ReelsBloc(),
+                child: const Reels(),
+              );
             });
       default:
         return MaterialPageRoute(

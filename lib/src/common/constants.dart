@@ -6,3 +6,7 @@ class StaticValues {
   static const String apiKey = '';
   static const String apiCountry = 'us';
 }
+
+class APIPath {
+  static const String reelsPath = 'bytes/all';
+}

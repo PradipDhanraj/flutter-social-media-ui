@@ -1,31 +1,34 @@
-import 'package:flutter_social_media_ui/src/common/services/network-service/network_helper.dart';
+import 'package:flutter_social_media_ui/src/common/constants.dart';
 import 'package:flutter_social_media_ui/src/common/services/network-service/network_service.dart';
-import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/reels/models/reels_model.dart';
 
-abstract class ReelsRepository {
-  Future<FeedData?> loadFeeds();
-  Map queryParams({int page = 1, int limit = 10}) => {
-        "page": 1,
-        "limit": 10,
-        "country": "United+States",
-      };
+abstract class ReelsRepository extends NetworkService {
+  Future<FeedData?> loadFeeds({int page = 1, int limit = 10});
+  Map<String, String> getParams(int page, int limit) {
+    return {
+      "page": '$page',
+      "limit": '$limit',
+      "country": "United+States",
+    };
+  }
 }
 
 class ReelsRepoImpl extends ReelsRepository {
   @override
-  Future<FeedData?> loadFeeds() async {
-    var response = await DIContainer.DI.get<NetworkService>().sendRequest(
+  Future<FeedData?> loadFeeds({int page = 1, int limit = 10}) async {
+    var response = await sendRequest(
           requestType: RequestType.get,
-          url: "https://api.ulearna.com/bytes/all?.page=1&limit=10&country=United+States",
-          queryParam: queryParams,
+          url: '${StaticValues.apiUrl}/${APIPath.reelsPath}',
+          queryParam: getParams(page, limit),
         );
-    return NetworkHelper.filterResponse<FeedData>(
-      callBack: (p0) {
-        return [];
+    return filterResponse<FeedData>(
+      callBack: (data) {
+        return FeedData.fromJson(data);
       },
       response: response,
-      onFailureCallBackWithMessage: (p0, p1) {},
+      onFailureCallBackWithMessage: (type, message) {
+        return null;
+      },
     );
   }
 }

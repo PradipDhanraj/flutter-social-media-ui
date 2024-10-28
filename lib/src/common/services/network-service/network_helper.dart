@@ -4,7 +4,7 @@ import 'package:flutter_social_media_ui/src/common/services/network-service/netw
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
-  static String concatUrlQP(String url, Map<String, String>? queryParameters) {
+  String concatUrlQP(String url, Map<String, String>? queryParameters) {
     if (url.isEmpty) return url;
     if (queryParameters == null || queryParameters.isEmpty) {
       return url;
@@ -19,32 +19,30 @@ class NetworkHelper {
     return result.substring(0, result.length - 1);
   }
 
-  static R filterResponse<R>(
-      {required NetworkCallBack callBack,
+  R filterResponse<R>(
+      {required NetworkCallBack<R> callBack,
       required http.Response? response,
       required NetworkOnFailureCallBackWithMessage onFailureCallBackWithMessage,
       CallBackParameterName parameterName = CallBackParameterName.all}) {
     try {
       if (response == null || response.body.isEmpty) {
-        return onFailureCallBackWithMessage(
-            NetworkResponseErrorType.responseEmpty, 'empty response');
+        return onFailureCallBackWithMessage(NetworkResponseErrorType.responseEmpty, 'empty response');
       }
-
       var json = jsonDecode(response.body);
-
       if (response.statusCode == 200) {
-        // if (_isValidResponse(json)) {
-        //   return callBack(parameterName.getJson(json));
-        // }
+        if (_isValidResponse(json)) {
+          return callBack(json);
+        }
       } else if (response.statusCode == 1708) {
-        return onFailureCallBackWithMessage(
-            NetworkResponseErrorType.socket, 'socket');
+        return onFailureCallBackWithMessage(NetworkResponseErrorType.socket, 'socket');
       }
-      return onFailureCallBackWithMessage(
-          NetworkResponseErrorType.didNotSucceed, 'unknown');
+      return onFailureCallBackWithMessage(NetworkResponseErrorType.didNotSucceed, 'unknown');
     } catch (e) {
-      return onFailureCallBackWithMessage(
-          NetworkResponseErrorType.exception, 'Exception $e');
+      return onFailureCallBackWithMessage(NetworkResponseErrorType.exception, 'Exception $e');
     }
+  }
+
+  bool _isValidResponse(json) {
+    return json['statusCode'] != null && json['statusCode'] == 200;
   }
 }
