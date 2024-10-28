@@ -1,0 +1,6 @@
+{
+  "appTitle": "flutter_social_media_ui",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
