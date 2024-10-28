@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_social_media_ui/src/services/network-service/network_enum.dart';
-import 'package:flutter_social_media_ui/src/services/network-service/network_typedef.dart';
+import 'package:flutter_social_media_ui/src/common/services/network-service/network_enum.dart';
+import 'package:flutter_social_media_ui/src/common/services/network-service/network_typedef.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {

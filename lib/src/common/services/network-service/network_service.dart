@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/constants.dart';
-import 'package:flutter_social_media_ui/src/services/network-service/network_helper.dart';
+import 'package:flutter_social_media_ui/src/common/services/network-service/network_helper.dart';
 import 'package:http/http.dart';
 
 enum RequestType { get, put, post }
