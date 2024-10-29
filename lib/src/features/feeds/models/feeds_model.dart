@@ -210,8 +210,8 @@ final statusValues = EnumValues({"approved": Status.APPROVED});
 
 class User {
   int userId;
-  Fullname fullname;
-  Username username;
+  String fullname;
+  String username;
   String profilePicture;
   String profilePictureCdn;
   String? designation;
@@ -227,8 +227,8 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         userId: json["user_id"],
-        fullname: fullnameValues.map[json["fullname"]]!,
-        username: usernameValues.map[json["username"]]!,
+        fullname: json["fullname"],
+        username: json["username"],
         profilePicture: json["profile_picture"],
         profilePictureCdn: json["profile_picture_cdn"],
         designation: json["designation"],
@@ -236,26 +236,13 @@ class User {
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,
-        "fullname": fullnameValues.reverse[fullname],
-        "username": usernameValues.reverse[username],
+        "fullname": fullname,
+        "username": username,
         "profile_picture": profilePicture,
         "profile_picture_cdn": profilePictureCdn,
         "designation": designation,
       };
 }
-
-enum Fullname { FARID_FANA, OBAIDULLAH_HUSSAM, RAHMATULLAH_NOWRUZ }
-
-final fullnameValues = EnumValues({
-  "Farid Fana": Fullname.FARID_FANA,
-  "Obaidullah Hussam ": Fullname.OBAIDULLAH_HUSSAM,
-  "Rahmatullah Nowruz": Fullname.RAHMATULLAH_NOWRUZ
-});
-
-enum Username { FARID_FANA, OBAIDULLAH_HUSSAM, RNOWRUZ }
-
-final usernameValues =
-    EnumValues({"farid.fana": Username.FARID_FANA, "Obaidullah Hussam": Username.OBAIDULLAH_HUSSAM, "rnowruz": Username.RNOWRUZ});
 
 enum VideoAspectRatio { THE_169, THE_911, THE_916 }
 

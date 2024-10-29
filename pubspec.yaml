@@ -20,6 +20,8 @@ dependencies:
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
   shimmer: ^3.0.0
+  chewie: ^1.8.5
+  video_player:
 
 dev_dependencies:
   flutter_test:

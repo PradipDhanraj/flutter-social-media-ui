@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/home/view/home.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/feeds_repo.dart';
@@ -33,6 +34,12 @@ class AppRoutes {
                 create: (context) => FeedsBloc(),
                 child: const Feeds(),
               );
+            });
+      case Reels.routeName:
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (context) {
+              return const Reels();
             });
       default:
         return MaterialPageRoute(

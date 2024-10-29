@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
-import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/feeds.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
 
 class Home extends StatefulWidget {
