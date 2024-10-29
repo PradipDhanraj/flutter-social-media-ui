@@ -47,7 +47,7 @@ class _FeedsState extends State<Feeds> {
                             width: double.infinity,
                             height: 100,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
@@ -55,7 +55,7 @@ class _FeedsState extends State<Feeds> {
                             width: double.infinity,
                             height: 15,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                             width: double.infinity,
                           ),
@@ -99,49 +99,67 @@ class PostWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    feedItem.user.profilePictureCdn != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image(
-                              image: NetworkImage(feedItem.user.profilePictureCdn!),
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          )
-                        : const Icon(
-                            CupertinoIcons.person_alt_circle_fill,
-                            color: Colors.black,
-                            size: 40,
-                          ),
-                    const SizedBox(
-                      width: 10,
+                feedItem.user.profilePictureCdn != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: Image(
+                          image: NetworkImage(feedItem.user.profilePictureCdn!),
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      )
+                    : const Icon(
+                        CupertinoIcons.person_alt_circle_fill,
+                        color: Colors.black,
+                        size: 40,
+                      ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      feedItem.user.username ?? "",
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          feedItem.user.username ?? "",
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          feedItem.user.designation ?? '',
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      feedItem.user.designation ?? '',
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.minimize),
-                  onPressed: () {},
+                const Spacer(),
+                Shimmer.fromColors(
+                  baseColor: Colors.black,
+                  highlightColor: Colors.grey.shade100,
+                  enabled: true,
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Tap to play',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.play_circle_fill_outlined,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          AppNavigation.navigateTo(
+                            Reels.routeName,
+                            arguments: feedItem,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
