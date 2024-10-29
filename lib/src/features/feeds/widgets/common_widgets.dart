@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/round_image.dart';
 
@@ -8,12 +8,12 @@ Column likeShareCommentSave(Datum data) {
   return Column(
     children: [
       iconDetail(CupertinoIcons.heart, '${data.totalLikes}', isTapped: data.isLiked),
-      SizedBox(height: 25),
+      const SizedBox(height: 25),
       iconDetail(CupertinoIcons.chat_bubble, '${data.totalComments}'),
-      SizedBox(height: 25),
+      const SizedBox(height: 25),
       iconDetail(CupertinoIcons.arrow_turn_up_right, ''),
-      SizedBox(height: 25),
-      Icon(CupertinoIcons.ellipsis_vertical, size: 22, color: Colors.white),
+      const SizedBox(height: 25),
+      const Icon(CupertinoIcons.ellipsis_vertical, size: 22, color: Colors.white),
     ],
   );
 }
@@ -27,8 +27,8 @@ Column iconDetail(IconData icon, String number, {bool isTapped = false}) {
         color: isTapped ? Colors.red : Colors.white,
       ),
       Text(
-        '$number',
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white),
+        number,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white),
       )
     ],
   );
@@ -45,14 +45,18 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
               children: [
-                Icon(CupertinoIcons.arrow_left, color: Colors.white),
-                SizedBox(width: 20),
-                Text(
+                InkWell(
+                    onTap: () {
+                      AppNavigation.goBack();
+                    },
+                    child: const Icon(CupertinoIcons.arrow_left, color: Colors.white)),
+                const SizedBox(width: 20),
+                const Text(
                   'Reels',
                   style: TextStyle(
                     fontSize: 22,
@@ -60,12 +64,12 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                     color: Colors.white,
                   ),
                 ),
-                Spacer(),
-                Icon(CupertinoIcons.camera, color: Colors.white),
+                const Spacer(),
+                const Icon(CupertinoIcons.camera, color: Colors.white),
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
@@ -77,13 +81,13 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                 Row(
                   children: [
                     circleImage(widget.datumData.user.profilePictureCdn, 30),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Text(
                       widget.datumData.user.username,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Padding(
                       padding: const EdgeInsets.only(right: 40),
                       child: Text(
@@ -95,7 +99,7 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                     )
                   ],
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 // Row(
                 //   children: [
                 //     Text(
@@ -127,11 +131,11 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
         ],
       );
 
-  TextStyle greyText = TextStyle(
+  TextStyle greyText = const TextStyle(
     color: Colors.white,
   );
 
-  TextStyle textStyle = TextStyle(
+  TextStyle textStyle = const TextStyle(
     color: Colors.white,
     fontSize: 14,
   );

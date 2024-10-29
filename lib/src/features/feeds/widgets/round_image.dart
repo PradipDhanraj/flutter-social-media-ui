@@ -10,8 +10,8 @@ Container circleImage(String networkImage, double size) {
         image: NetworkImage(networkImage),
         fit: BoxFit.cover,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(50.0)),
-      gradient: LinearGradient(colors: [
+      borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+      gradient: const LinearGradient(colors: [
         Colors.red,
         Colors.pink,
       ]),
@@ -33,8 +33,8 @@ Container rectImage(String networkImage, double size) {
         image: NetworkImage(networkImage),
         fit: BoxFit.cover,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      gradient: LinearGradient(colors: [
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+      gradient: const LinearGradient(colors: [
         Colors.red,
         Colors.pink,
       ]),
