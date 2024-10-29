@@ -1,14 +1,17 @@
 // ignore_for_file: deprecated_member_use, depend_on_referenced_packages
 
 import 'package:chewie/chewie.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/common_widgets.dart';
 import 'package:video_player/video_player.dart';
 
 class Reels extends StatefulWidget {
   static const routeName = '/reels';
-  const Reels({super.key});
+  final Datum datumData;
+  const Reels({super.key, required this.datumData});
   @override
   ReelsState createState() => ReelsState();
 }
@@ -19,8 +22,7 @@ class ReelsState extends State<Reels> {
   late Future<void> _future;
   @override
   void initState() {
-    videoPlayerController =
-        VideoPlayerController.network('https://vz-48b5dfd0-3fe.b-cdn.net/4c40833c-36bb-4a28-8a30-ebb047dcc7b4/play_480p.mp4');
+    videoPlayerController = VideoPlayerController.network(widget.datumData.cdnUrl);
     _future = loadVideoClip();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
@@ -54,7 +56,9 @@ class ReelsState extends State<Reels> {
                             controller: chewie,
                           ),
                         )
-                      : const CircularProgressIndicator(),
+                      : const CupertinoActivityIndicator(
+                          radius: 15,
+                        ),
                 );
                 //return Chewie(controller: chewie);
               }), // Video Player
@@ -73,6 +77,7 @@ class ReelsState extends State<Reels> {
         autoPlay: true,
         looping: true,
         autoInitialize: true,
+        showControls: false,
         aspectRatio: videoPlayerController.value.aspectRatio,
         cupertinoProgressColors: ChewieProgressColors(),
       );

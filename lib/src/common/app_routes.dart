@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/home/view/home.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
-import 'package:flutter_social_media_ui/src/features/feeds/repository/feeds_repo.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/feeds.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_controller.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
@@ -39,7 +39,9 @@ class AppRoutes {
         return MaterialPageRoute(
             settings: settings,
             builder: (context) {
-              return const Reels();
+              return Reels(
+                datumData: settings.arguments as Datum,
+              );
             });
       default:
         return MaterialPageRoute(

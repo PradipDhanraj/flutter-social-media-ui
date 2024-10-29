@@ -72,7 +72,7 @@ class _FeedsState extends State<Feeds> {
                                     ],
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.minimize),
+                                    icon: const Icon(Icons.minimize),
                                     onPressed: () {},
                                   ),
                                 ],
@@ -80,7 +80,10 @@ class _FeedsState extends State<Feeds> {
                             ),
 
                             InkWell(
-                              onTap: () => AppNavigation.navigateTo(Reels.routeName),
+                              onTap: () => AppNavigation.navigateTo(
+                                Reels.routeName,
+                                arguments: state.feedItems[i],
+                              ),
                               child: FadeInImage(
                                 image: NetworkImage(state.feedItems[i].thumbCdnUrl),
                                 placeholder: const AssetImage("assets/placeholder.png"),
@@ -95,34 +98,34 @@ class _FeedsState extends State<Feeds> {
                                   children: <Widget>[
                                     IconButton(
                                       onPressed: () {},
-                                      icon: Icon(Icons.linked_camera),
+                                      icon: const Icon(Icons.linked_camera),
                                     ),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: Icon(Icons.comment),
+                                      icon: const Icon(Icons.comment),
                                     ),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: Icon(Icons.send),
+                                      icon: const Icon(Icons.send),
                                     ),
                                   ],
                                 ),
                                 IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.bookmarks),
+                                  icon: const Icon(Icons.bookmarks),
                                 ),
                               ],
                             ),
 
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 14,
                               ),
                               child: RichText(
                                 softWrap: true,
                                 overflow: TextOverflow.visible,
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
                                     TextSpan(
                                       text: "Liked By ",
@@ -158,7 +161,7 @@ class _FeedsState extends State<Feeds> {
                             // caption
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 14,
                                 vertical: 5,
                               ),
@@ -169,11 +172,11 @@ class _FeedsState extends State<Feeds> {
                                   children: [
                                     TextSpan(
                                       text: state.feedItems[i].user.username,
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                                     ),
                                     TextSpan(
                                       text: " ${state.feedItems[i].title}",
-                                      style: TextStyle(color: Colors.black),
+                                      style: const TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -182,11 +185,11 @@ class _FeedsState extends State<Feeds> {
 
                             // post date
                             Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 14,
                               ),
                               alignment: Alignment.topLeft,
-                              child: Text(
+                              child: const Text(
                                 "Febuary 2020",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
