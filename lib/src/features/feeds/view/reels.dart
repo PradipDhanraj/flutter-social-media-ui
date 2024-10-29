@@ -8,20 +8,20 @@ import 'package:video_player/video_player.dart';
 
 class Reels extends StatefulWidget {
   static const routeName = '/reels';
-
   const Reels({super.key});
-
   @override
   ReelsState createState() => ReelsState();
 }
 
-final videoPlayerController =
-    VideoPlayerController.network('https://vz-48b5dfd0-3fe.b-cdn.net/4c40833c-36bb-4a28-8a30-ebb047dcc7b4/play_480p.mp4');
-
 class ReelsState extends State<Reels> {
+  late ChewieController chewie;
+  late VideoPlayerController videoPlayerController;
+  late Future<void> _future;
   @override
   void initState() {
-    loadVideoClip();
+    videoPlayerController =
+        VideoPlayerController.network('https://vz-48b5dfd0-3fe.b-cdn.net/4c40833c-36bb-4a28-8a30-ebb047dcc7b4/play_480p.mp4');
+    _future = loadVideoClip();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
   }
@@ -41,8 +41,23 @@ class ReelsState extends State<Reels> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          Chewie(controller: chewie), // Video Player
+          FutureBuilder<void>(
+              future: _future,
+              builder: (context, snapshot) {
+                return Center(
+                  child: videoPlayerController.value.isInitialized
+                      ? AspectRatio(
+                          aspectRatio: videoPlayerController.value.aspectRatio,
+                          child: Chewie(
+                            controller: chewie,
+                          ),
+                        )
+                      : const CircularProgressIndicator(),
+                );
+                //return Chewie(controller: chewie);
+              }), // Video Player
           CommentWithPublisher(),
           buildPosLikeComment()
         ],
@@ -50,8 +65,18 @@ class ReelsState extends State<Reels> {
     );
   }
 
-  void loadVideoClip() async {
+  Future<void> loadVideoClip() async {
     await videoPlayerController.initialize();
+    setState(() {
+      chewie = ChewieController(
+        videoPlayerController: videoPlayerController,
+        autoPlay: true,
+        looping: true,
+        autoInitialize: true,
+        aspectRatio: videoPlayerController.value.aspectRatio,
+        cupertinoProgressColors: ChewieProgressColors(),
+      );
+    });
   }
 
   @override
@@ -61,13 +86,4 @@ class ReelsState extends State<Reels> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     super.dispose();
   }
-
-  final chewie = ChewieController(
-    videoPlayerController: videoPlayerController,
-    autoPlay: true,
-    looping: true,
-    allowFullScreen: true,
-    autoInitialize: true,
-    cupertinoProgressColors: ChewieProgressColors(),
-  );
 }
