@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use, depend_on_referenced_packages
 
 import 'package:chewie/chewie.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
@@ -36,7 +35,7 @@ class ReelsState extends State<Reels> {
         right: 10,
         width: 50,
         height: 260,
-        child: likeShareCommentSave(),
+        child: likeShareCommentSave(widget.datumData),
       );
     }
 
@@ -48,21 +47,21 @@ class ReelsState extends State<Reels> {
           FutureBuilder<void>(
               future: _future,
               builder: (context, snapshot) {
-                return Center(
-                  child: videoPlayerController.value.isInitialized
-                      ? AspectRatio(
-                          aspectRatio: videoPlayerController.value.aspectRatio,
-                          child: Chewie(
-                            controller: chewie,
-                          ),
-                        )
-                      : const CupertinoActivityIndicator(
-                          radius: 15,
+                return videoPlayerController.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: videoPlayerController.value.aspectRatio,
+                        child: Chewie(
+                          controller: chewie,
                         ),
-                );
+                      )
+                    : Center(
+                        child: Image.network(
+                          widget.datumData.thumbCdnUrl,
+                        ),
+                      );
                 //return Chewie(controller: chewie);
               }), // Video Player
-          CommentWithPublisher(),
+          CommentWithPublisher(widget.datumData),
           buildPosLikeComment()
         ],
       ),

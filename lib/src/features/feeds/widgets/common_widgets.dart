@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/round_image.dart';
 
-Column likeShareCommentSave() {
+Column likeShareCommentSave(Datum data) {
   return Column(
     children: [
-      iconDetail(CupertinoIcons.heart, '354k'),
+      iconDetail(CupertinoIcons.heart, '${data.totalLikes}', isTapped: data.isLiked),
       SizedBox(height: 25),
-      iconDetail(CupertinoIcons.chat_bubble, '872'),
+      iconDetail(CupertinoIcons.chat_bubble, '${data.totalComments}'),
       SizedBox(height: 25),
       iconDetail(CupertinoIcons.arrow_turn_up_right, ''),
       SizedBox(height: 25),
@@ -16,13 +18,13 @@ Column likeShareCommentSave() {
   );
 }
 
-Column iconDetail(IconData icon, String number) {
+Column iconDetail(IconData icon, String number, {bool isTapped = false}) {
   return Column(
     children: [
       Icon(
         icon,
         size: 33,
-        color: Colors.white,
+        color: isTapped ? Colors.red : Colors.white,
       ),
       Text(
         '$number',
@@ -33,7 +35,8 @@ Column iconDetail(IconData icon, String number) {
 }
 
 class CommentWithPublisher extends StatefulWidget {
-  CommentWithPublisher({super.key});
+  final Datum datumData;
+  CommentWithPublisher(this.datumData, {super.key});
   @override
   _CommentWithPublisherState createState() => _CommentWithPublisherState();
 }
@@ -73,38 +76,49 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
               children: [
                 Row(
                   children: [
-                    circleImage('https://ulearna.b-cdn.net/profiles/1716181156129-c7a910c9978229452aabf79430ac5695.jpg', 30),
-                    SizedBox(width: 8.0),
-                    Text('indian music talent', style: TextStyle(color: Colors.white)),
+                    circleImage(widget.datumData.user.profilePictureCdn, 30),
                     SizedBox(width: 8.0),
                     Text(
-                      'Follow',
-                      style: textStyle,
+                      widget.datumData.user.username,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(width: 8.0),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 40),
+                      child: Text(
+                        widget.datumData.isFollow ? 'Following' : 'Follow',
+                        style: textStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     )
                   ],
                 ),
                 SizedBox(height: 10.0),
+                // Row(
+                //   children: [
+                //     Text(
+                //       widget.datumData,
+                //       style: textStyle,
+                //     ),
+                //     Text(
+                //       'more',
+                //       style: greyText,
+                //     )
+                //   ],
+                // ),
+                // SizedBox(height: 8.0),
                 Row(
                   children: [
-                    Text(
-                      'Tag someone special 😍 🔥 💡... ',
-                      style: textStyle,
+                    Expanded(
+                      child: Text(
+                        widget.datumData.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: textStyle,
+                      ),
                     ),
-                    Text(
-                      'more',
-                      style: greyText,
-                    )
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    Text(
-                      'Anoop Shankar Tu Mile Dil Khile ',
-                      style: textStyle,
-                    ),
-                    Spacer(),
-                    rectImage('https://ulearna.b-cdn.net/profiles/1716181156129-c7a910c9978229452aabf79430ac5695.jpg', 35)
+                    rectImage(widget.datumData.thumbCdnUrl, 35)
                   ],
                 ),
               ],

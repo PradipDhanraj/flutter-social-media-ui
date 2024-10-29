@@ -22,6 +22,7 @@ dependencies:
   shimmer: ^3.0.0
   chewie: ^1.8.5
   video_player:
+  intl:
 
 dev_dependencies:
   flutter_test:

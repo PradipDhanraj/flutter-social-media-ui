@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
+import 'package:intl/intl.dart';
 
 class Feeds extends StatefulWidget {
   const Feeds({super.key});
@@ -20,11 +22,9 @@ class _FeedsState extends State<Feeds> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-      ),
-      body: SafeArea(
+    return Material(
+      color: Colors.white,
+      child: SafeArea(
         child: SingleChildScrollView(
           child: BlocBuilder<FeedsBloc, FeedsState>(
             builder: (context, state) {
@@ -65,8 +65,18 @@ class _FeedsState extends State<Feeds> {
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(state.feedItems[i].user.username),
-                                          Text(state.feedItems[i].user.designation ?? ''),
+                                          Text(
+                                            state.feedItems[i].user.username,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Text(
+                                            state.feedItems[i].user.designation ?? '',
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -98,21 +108,33 @@ class _FeedsState extends State<Feeds> {
                                   children: <Widget>[
                                     IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.linked_camera),
+                                      icon: Icon(
+                                        CupertinoIcons.heart,
+                                        color: state.feedItems[i].isLiked ? Colors.red : Colors.black,
+                                      ),
                                     ),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.comment),
+                                      icon: const Icon(
+                                        CupertinoIcons.chat_bubble,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.send),
+                                      icon: const Icon(
+                                        CupertinoIcons.arrow_turn_up_right,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 IconButton(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.bookmarks),
+                                  icon: Icon(
+                                    !state.feedItems[i].isWished ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ],
                             ),
@@ -125,33 +147,28 @@ class _FeedsState extends State<Feeds> {
                               child: RichText(
                                 softWrap: true,
                                 overflow: TextOverflow.visible,
-                                text: const TextSpan(
+                                text: TextSpan(
                                   children: [
-                                    TextSpan(
+                                    const TextSpan(
                                       text: "Liked By ",
                                       style: TextStyle(color: Colors.black),
                                     ),
                                     TextSpan(
-                                      text: "Sigmund,",
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                                      text: "${state.feedItems[i].totalLikes}",
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    TextSpan(
-                                      text: " Yessenia,",
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: " Dayana",
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
+                                    const TextSpan(
                                       text: " and",
                                       style: TextStyle(
                                         color: Colors.black,
                                       ),
                                     ),
-                                    TextSpan(
-                                      text: " 1263 others",
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                                    const TextSpan(
+                                      text: " others",
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -189,10 +206,10 @@ class _FeedsState extends State<Feeds> {
                                 horizontal: 14,
                               ),
                               alignment: Alignment.topLeft,
-                              child: const Text(
-                                "Febuary 2020",
+                              child: Text(
+                                DateFormat.yMMMMd().format(state.feedItems[i].byteAddedOn),
                                 textAlign: TextAlign.start,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.grey,
                                 ),
                               ),
