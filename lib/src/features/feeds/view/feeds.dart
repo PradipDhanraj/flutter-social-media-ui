@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
+import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
+import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -24,9 +26,31 @@ class _FeedsState extends State<Feeds> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(
+          CupertinoIcons.profile_circled,
+          size: AppFontSizes.iconSmallSize,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: InkWell(
+              onTap: () {
+                AppNavigation.navigateTo(SettingsView.routeName);
+              },
+              child: Icon(
+                CupertinoIcons.line_horizontal_3,
+                size: AppFontSizes.iconSmallSize,
+              ),
+            ),
+          )
+        ],
+        backgroundColor: AppColors.background,
+        title: const Text('Ulerna'),
+      ),
+      backgroundColor: AppColors.background,
+      body: SafeArea(
         child: SingleChildScrollView(
           controller: BlocProvider.of<FeedsBloc>(context).feedController,
           child: BlocBuilder<FeedsBloc, FeedsState>(
@@ -37,8 +61,9 @@ class _FeedsState extends State<Feeds> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
+                      baseColor: AppColors.background,
                       highlightColor: Colors.grey.shade100,
+                      period: const Duration(seconds: 2),
                       enabled: true,
                       child: Column(
                         children: [
@@ -88,7 +113,7 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColors.background,
       child: Column(
         children: <Widget>[
           Container(
@@ -109,9 +134,9 @@ class PostWidget extends StatelessWidget {
                           fit: BoxFit.fitWidth,
                         ),
                       )
-                    : const Icon(
+                    : Icon(
                         CupertinoIcons.person_alt_circle_fill,
-                        color: Colors.black,
+                        color: AppColors.imageColor,
                         size: 40,
                       ),
                 const SizedBox(
@@ -123,33 +148,36 @@ class PostWidget extends StatelessWidget {
                   children: [
                     Text(
                       feedItem.user.username ?? "",
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: AppColors.textColor,
                       ),
                     ),
                     Text(
                       feedItem.user.designation ?? '',
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: AppColors.textColor,
                       ),
                     ),
                   ],
                 ),
                 const Spacer(),
                 Shimmer.fromColors(
-                  baseColor: Colors.black,
-                  highlightColor: Colors.grey.shade100,
+                  baseColor: AppColors.textColor,
+                  highlightColor: Colors.black,
                   enabled: true,
+                  period: Durations.extralong4,
                   child: Row(
                     children: [
-                      const Text(
+                      Text(
                         'Tap to play',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: AppColors.textColor,
+                        ),
                       ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.play_circle_fill_outlined,
-                          color: Colors.black,
+                          color: AppColors.imageColor,
                         ),
                         onPressed: () {
                           AppNavigation.navigateTo(
@@ -186,21 +214,21 @@ class PostWidget extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       CupertinoIcons.heart,
-                      color: feedItem.isLiked ? Colors.red : Colors.black,
+                      color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
                     ),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       CupertinoIcons.chat_bubble,
-                      color: Colors.black,
+                      color: AppColors.imageColor,
                     ),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       CupertinoIcons.arrow_turn_up_right,
-                      color: Colors.black,
+                      color: AppColors.imageColor,
                     ),
                   ),
                 ],
@@ -209,7 +237,7 @@ class PostWidget extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(
                   !feedItem.isWished ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,
-                  color: Colors.black,
+                  color: AppColors.imageColor,
                 ),
               ),
             ],
@@ -225,26 +253,28 @@ class PostWidget extends StatelessWidget {
               overflow: TextOverflow.visible,
               text: TextSpan(
                 children: [
-                  const TextSpan(
+                  TextSpan(
                     text: "Liked By ",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: AppColors.textColor),
                   ),
                   TextSpan(
                     text: "${feedItem.totalLikes}",
-                    style: const TextStyle(
-                      color: Colors.black,
+                    style: TextStyle(
+                      color: AppColors.textColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: " and",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColor,
                     ),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: " others",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(
+                      color: AppColors.textColor,
+                    ),
                   ),
                 ],
               ),
@@ -265,11 +295,16 @@ class PostWidget extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: feedItem.user.username,
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textColor,
+                    ),
                   ),
                   TextSpan(
                     text: " ${feedItem.title}",
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(
+                      color: AppColors.textColor,
+                    ),
                   ),
                 ],
               ),

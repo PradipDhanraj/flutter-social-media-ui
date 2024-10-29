@@ -3,6 +3,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/common_widgets.dart';
 import 'package:video_player/video_player.dart';
@@ -40,7 +41,7 @@ class ReelsState extends State<Reels> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.background,
       body: Stack(
         fit: StackFit.expand,
         children: [
