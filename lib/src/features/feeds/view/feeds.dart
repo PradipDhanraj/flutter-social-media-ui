@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
@@ -29,18 +28,12 @@ class _FeedsState extends State<Feeds> {
       color: Colors.white,
       child: SafeArea(
         child: SingleChildScrollView(
+          controller: BlocProvider.of<FeedsBloc>(context).feedController,
           child: BlocBuilder<FeedsBloc, FeedsState>(
             builder: (context, state) {
               return Column(
                 children: <Widget>[
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.feedItems.length,
-                    itemBuilder: (ctx, i) {
-                      return PostWidget(state.feedItems[i]);
-                    },
-                  ),
+                  ...state.feedItems.map((e) => PostWidget(e)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: Shimmer.fromColors(
@@ -108,15 +101,21 @@ class PostWidget extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: Image(
-                        image: NetworkImage(feedItem.user.profilePictureCdn),
-                        width: 40,
-                        height: 40,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
+                    feedItem.user.profilePictureCdn != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: Image(
+                              image: NetworkImage(feedItem.user.profilePictureCdn!),
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          )
+                        : const Icon(
+                            CupertinoIcons.person_alt_circle_fill,
+                            color: Colors.black,
+                            size: 40,
+                          ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -125,7 +124,7 @@ class PostWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          feedItem.user.username,
+                          feedItem.user.username ?? "",
                           style: const TextStyle(
                             color: Colors.black,
                           ),
@@ -154,7 +153,7 @@ class PostWidget extends StatelessWidget {
               arguments: feedItem,
             ),
             child: FadeInImage(
-              image: NetworkImage(feedItem.thumbCdnUrl),
+              image: NetworkImage(feedItem.thumbCdnUrl ?? ""),
               placeholder: const AssetImage("assets/placeholder.png"),
               width: MediaQuery.of(context).size.width,
             ),

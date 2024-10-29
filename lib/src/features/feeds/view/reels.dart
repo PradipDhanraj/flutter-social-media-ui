@@ -21,7 +21,7 @@ class ReelsState extends State<Reels> {
   late Future<void> _future;
   @override
   void initState() {
-    videoPlayerController = VideoPlayerController.network(widget.datumData.cdnUrl);
+    videoPlayerController = VideoPlayerController.network(widget.datumData.cdnUrl ?? "");
     _future = loadVideoClip();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
@@ -56,7 +56,7 @@ class ReelsState extends State<Reels> {
                       )
                     : Center(
                         child: Image.network(
-                          widget.datumData.thumbCdnUrl,
+                          widget.datumData.thumbCdnUrl ?? "",
                         ),
                       );
                 //return Chewie(controller: chewie);

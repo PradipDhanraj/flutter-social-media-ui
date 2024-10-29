@@ -6,11 +6,11 @@ import 'dart:convert';
 
 FeedData feedFromJson(String str) => FeedData.fromJson(json.decode(str));
 
-String feedToJson(FeedData data) => json.encode(data.toJson());
+String? feedToJson(FeedData data) => json.encode(data.toJson());
 
 class FeedData {
   int statusCode;
-  String message;
+  String? message;
   Feed feed;
 
   FeedData({
@@ -54,13 +54,13 @@ class Feed {
 
 class Datum {
   int id;
-  String title;
-  String url;
-  String cdnUrl;
-  String thumbCdnUrl;
+  String? title;
+  String? url;
+  String? cdnUrl;
+  String? thumbCdnUrl;
   int userId;
   Status status;
-  String slug;
+  String? slug;
   EncodeStatus encodeStatus;
   int priority;
   int categoryId;
@@ -72,7 +72,7 @@ class Datum {
   int duration;
   DateTime byteAddedOn;
   DateTime byteUpdatedOn;
-  String bunnyStreamVideoId;
+  String? bunnyStreamVideoId;
   String? language;
   int bunnyEncodingStatus;
   dynamic deletedAt;
@@ -86,7 +86,7 @@ class Datum {
   bool isLiked;
   bool isWished;
   bool isFollow;
-  VideoAspectRatio videoAspectRatio;
+  String? videoAspectRatio;
 
   Datum({
     required this.id,
@@ -159,7 +159,7 @@ class Datum {
         isLiked: json["is_liked"],
         isWished: json["is_wished"],
         isFollow: json["is_follow"],
-        videoAspectRatio: videoAspectRatioValues.map[json["video_aspect_ratio"]]!,
+        videoAspectRatio: json["video_aspect_ratio"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,7 +196,7 @@ class Datum {
         "is_liked": isLiked,
         "is_wished": isWished,
         "is_follow": isFollow,
-        "video_aspect_ratio": videoAspectRatioValues.reverse[videoAspectRatio],
+        "video_aspect_ratio": videoAspectRatio,
       };
 }
 
@@ -210,10 +210,10 @@ final statusValues = EnumValues({"approved": Status.APPROVED});
 
 class User {
   int userId;
-  String fullname;
-  String username;
-  String profilePicture;
-  String profilePictureCdn;
+  String? fullname;
+  String? username;
+  String? profilePicture;
+  String? profilePictureCdn;
   String? designation;
 
   User({
@@ -243,11 +243,6 @@ class User {
         "designation": designation,
       };
 }
-
-enum VideoAspectRatio { THE_169, THE_911, THE_916 }
-
-final videoAspectRatioValues =
-    EnumValues({"16:9": VideoAspectRatio.THE_169, "9:11": VideoAspectRatio.THE_911, "9:16": VideoAspectRatio.THE_916});
 
 class MetaData {
   int total;

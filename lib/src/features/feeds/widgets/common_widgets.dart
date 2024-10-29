@@ -80,10 +80,15 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
               children: [
                 Row(
                   children: [
-                    circleImage(widget.datumData.user.profilePictureCdn, 30),
+                    widget.datumData.user.profilePictureCdn == null
+                        ? const Icon(
+                            CupertinoIcons.person_alt_circle_fill,
+                            color: Colors.black,
+                          )
+                        : circleImage(widget.datumData.user.profilePictureCdn!, 30),
                     const SizedBox(width: 8.0),
                     Text(
-                      widget.datumData.user.username,
+                      widget.datumData.user.username ?? "",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(color: Colors.white),
                     ),
@@ -117,12 +122,12 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.datumData.title,
+                        widget.datumData.title ?? "",
                         overflow: TextOverflow.ellipsis,
                         style: textStyle,
                       ),
                     ),
-                    rectImage(widget.datumData.thumbCdnUrl, 35)
+                    rectImage(widget.datumData.thumbCdnUrl ?? "", 35)
                   ],
                 ),
               ],
