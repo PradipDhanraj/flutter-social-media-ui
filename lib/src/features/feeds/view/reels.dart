@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/common_widgets.dart';
 import 'package:video_player/video_player.dart';
 
@@ -56,10 +57,20 @@ class ReelsState extends State<Reels> {
                         ),
                       )
                     : Center(
-                        child: Image.network(
-                          widget.datumData.thumbCdnUrl ?? "",
-                        ),
-                      );
+                        child: CacheImage(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        cacheDurationDays: 1,
+                        hasBorder: false,
+                        imageId: widget.datumData.thumbCdnUrl!,
+                        imageUrl: widget.datumData.thumbCdnUrl,
+                        shape: BoxShape.rectangle,
+                        aspectRatio: widget.datumData.videoAspectRatio,
+                      )
+                        // Image.network(
+                        //   widget.datumData.thumbCdnUrl ?? "",
+                        // ),
+                        );
                 //return Chewie(controller: chewie);
               }), // Video Player
           CommentWithPublisher(widget.datumData),

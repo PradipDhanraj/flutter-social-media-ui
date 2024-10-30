@@ -130,7 +130,7 @@ class PostWidget extends StatelessWidget {
                   height: 40,
                   width: 40,
                   imageId: "${feedItem.user.userId}",
-                  cacheinDays: 10,
+                  cacheDurationDays: 10,
                   placeholder: Icon(
                     CupertinoIcons.person_alt_circle_fill,
                     color: AppColors.imageColor,
@@ -196,11 +196,21 @@ class PostWidget extends StatelessWidget {
               Reels.routeName,
               arguments: feedItem,
             ),
-            child: FadeInImage(
-              image: NetworkImage(feedItem.thumbCdnUrl ?? ""),
-              placeholder: const AssetImage("assets/placeholder.png"),
+            child: CacheImage(
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
+              cacheDurationDays: 1,
+              hasBorder: false,
+              imageId: feedItem.thumbCdnUrl!,
+              imageUrl: feedItem.thumbCdnUrl,
+              shape: BoxShape.rectangle,
+              aspectRatio: feedItem.videoAspectRatio,
             ),
+            // child: FadeInImage(
+            //   image: NetworkImage(feedItem.thumbCdnUrl ?? ""),
+            //   placeholder: const AssetImage("assets/placeholder.png"),
+            //   width: MediaQuery.of(context).size.width,
+            // ),
           ),
 
           Row(

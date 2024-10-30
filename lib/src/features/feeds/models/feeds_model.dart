@@ -86,7 +86,18 @@ class Datum {
   bool isLiked;
   bool isWished;
   bool isFollow;
-  String? videoAspectRatio;
+  String? _videoAspectRatio;
+
+  double get videoAspectRatio {
+    double value = 1;
+    if (_videoAspectRatio != null) {
+      var lst = _videoAspectRatio!.split(':');
+      var height = int.parse(lst.first);
+      var width = int.parse(lst.last);
+      value = width / height;
+    }
+    return value;
+  }
 
   Datum({
     required this.id,
@@ -122,8 +133,8 @@ class Datum {
     required this.isLiked,
     required this.isWished,
     required this.isFollow,
-    required this.videoAspectRatio,
-  });
+    required String? videoAspectRatio,
+  }) : _videoAspectRatio = videoAspectRatio;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -196,7 +207,7 @@ class Datum {
         "is_liked": isLiked,
         "is_wished": isWished,
         "is_follow": isFollow,
-        "video_aspect_ratio": videoAspectRatio,
+        "video_aspect_ratio": _videoAspectRatio,
       };
 }
 

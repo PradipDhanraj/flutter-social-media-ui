@@ -20,7 +20,7 @@ class ReelsRepoImpl extends ReelsRepository {
   Future<FeedData?> loadFeeds({int page = 1, int limit = 10}) async {
     var response = await sendRequest(
       requestType: RequestType.get,
-      url: '${StaticValues.apiUrl}/${APIPath.reelsPath}',
+      url: '${AppConstants.apiUrl}/${APIPath.reelsPath}',
       queryParam: getParams(page, limit),
     );
     return filterResponse<FeedData>(

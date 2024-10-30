@@ -5,37 +5,56 @@ import 'package:flutter/material.dart';
 class CacheImage extends StatefulWidget {
   final String? imageUrl;
   final String imageId;
-  final double? height;
-  final double? width;
+  final double height;
+  final double width;
   final BoxShape shape;
-  final int cacheinDays;
+  final int cacheDurationDays;
   final Widget placeholder;
-  const CacheImage(
-      {super.key,
-      required this.imageUrl,
-      required this.imageId,
-      required this.height,
-      required this.width,
-      this.cacheinDays = 1,
-      this.shape = BoxShape.circle,
-      this.placeholder = const Icon(CupertinoIcons.refresh_circled_solid)});
+  final bool hasBorder;
+  final double aspectRatio;
+  const CacheImage({
+    super.key,
+    required this.imageUrl,
+    required this.imageId,
+    this.height = 30,
+    this.width = 30,
+    this.cacheDurationDays = 1,
+    this.shape = BoxShape.circle,
+    this.hasBorder = true,
+    this.placeholder = const Icon(CupertinoIcons.refresh_circled_solid),
+    this.aspectRatio = 1,
+  });
 
   @override
   State<CacheImage> createState() => _CacheImageState();
 }
 
 class _CacheImageState extends State<CacheImage> {
+  (double, double) getScreenRatio() {
+    return (widget.width, widget.aspectRatio * widget.width);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var size = getScreenRatio();
     return ExtendedImage.network(
       widget.imageUrl ?? '',
-      width: widget.width,
-      height: widget.height,
-      fit: BoxFit.fill,
-      cache: true, cacheMaxAge: Duration(days: widget.cacheinDays),
-      border: Border.all(color: Colors.red, width: 1.0),
+      width: size.$1,
+      height: size.$2,
+      filterQuality: FilterQuality.low,
+      fit: BoxFit.fitWidth,
+      cache: true,
+      cacheMaxAge: Duration(days: widget.cacheDurationDays),
+      border: widget.hasBorder ? Border.all(color: Colors.red, width: 1.0) : null,
       shape: widget.shape,
-      borderRadius: BorderRadius.all(Radius.circular(widget.width ?? 30)),
+      compressionRatio: .5,
+      borderRadius: widget.shape == BoxShape.circle
+          ? BorderRadius.all(
+              Radius.circular(
+                widget.width,
+              ),
+            )
+          : null,
       loadStateChanged: (state) {
         if (state.extendedImageLoadState == LoadState.completed) {
           return ExtendedRawImage(
@@ -49,7 +68,6 @@ class _CacheImageState extends State<CacheImage> {
         }
         return const CupertinoActivityIndicator();
       },
-      //cancelToken: cancellationToken,
     );
   }
 }

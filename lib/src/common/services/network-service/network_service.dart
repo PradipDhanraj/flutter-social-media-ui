@@ -10,7 +10,7 @@ enum RequestType { get, put, post }
 abstract class NetworkService extends NetworkHelper {
   Client? _mockClient;
   set mockClientSetter(Client mc) {
-    if (StaticValues.isMock) {
+    if (AppConstants.isMock) {
       _mockClient = mc;
     } else {
       _mockClient = null;
