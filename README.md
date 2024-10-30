@@ -21,10 +21,10 @@ This Flutter application fetches and displays video data from an API, mimicking 
 
 1. **Simply Run**:
    Now Simply Run the application in application by running comand or the defualt running tool for you IDE
+   Run the application from VSCODE RUN AND DEBUG option, launch.json will have all the neccessary secret environmental variables.
+   OR
    ```bash
    flutter run --dart-define isMock=false --dart-define url=https://api.ulearna.com
-   OR
-   Run the application from VSCODE RUN AND DEBUG option, launch.json will have all the neccessary secret environmental variables.
 ---
 
 ## Generating Build
