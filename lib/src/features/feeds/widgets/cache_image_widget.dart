@@ -41,7 +41,7 @@ class _CacheImageState extends State<CacheImage> {
       widget.imageUrl ?? '',
       width: size.$1,
       height: size.$2,
-      filterQuality: FilterQuality.low,
+      filterQuality: FilterQuality.none,
       fit: BoxFit.fitWidth,
       cache: true,
       cacheMaxAge: Duration(days: widget.cacheDurationDays),

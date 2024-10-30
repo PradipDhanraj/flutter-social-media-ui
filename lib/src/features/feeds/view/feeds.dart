@@ -69,7 +69,7 @@ class _FeedsState extends State<Feeds> {
                       child: Column(
                         children: [
                           Container(
-                            color: Colors.red,
+                            color: Colors.black,
                             width: double.infinity,
                             height: 100,
                           ),
@@ -77,7 +77,7 @@ class _FeedsState extends State<Feeds> {
                             height: 10,
                           ),
                           Container(
-                            color: Colors.red,
+                            color: Colors.black,
                             width: double.infinity,
                             height: 15,
                           ),
@@ -86,7 +86,7 @@ class _FeedsState extends State<Feeds> {
                             width: double.infinity,
                           ),
                           Container(
-                            color: Colors.red,
+                            color: Colors.black,
                             width: double.infinity,
                             height: 15,
                           ),
