@@ -9,6 +9,7 @@ import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Feeds extends StatefulWidget {
   const Feeds({super.key});
@@ -45,7 +46,7 @@ class _FeedsState extends State<Feeds> {
           )
         ],
         backgroundColor: AppColors.background,
-        title: const Text('Ulerna'),
+        title: Text(AppLocalizations.of(context)!.appTitle),
       ),
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -171,7 +172,7 @@ class PostWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Tap to play',
+                          AppLocalizations.of(context)!.tapToPlay,
                           style: TextStyle(
                             color: AppColors.textColor,
                           ),
@@ -262,7 +263,7 @@ class PostWidget extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Liked By ",
+                    text: AppLocalizations.of(context)!.feedStrings.split(":").first,
                     style: TextStyle(color: AppColors.textColor),
                   ),
                   TextSpan(
@@ -273,15 +274,16 @@ class PostWidget extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: " and",
+                    text: AppLocalizations.of(context)!.feedStrings.split(":")[1],
                     style: TextStyle(
                       color: AppColors.textColor,
                     ),
                   ),
                   TextSpan(
-                    text: " others",
+                    text: AppLocalizations.of(context)!.feedStrings.split(":").last,
                     style: TextStyle(
                       color: AppColors.textColor,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

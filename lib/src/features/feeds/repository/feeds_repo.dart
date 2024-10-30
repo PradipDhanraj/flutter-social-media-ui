@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_social_media_ui/src/common/constants.dart';
 import 'package:flutter_social_media_ui/src/common/services/network-service/network_service.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';

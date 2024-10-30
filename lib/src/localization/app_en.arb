@@ -1,6 +1,26 @@
 {
-  "appTitle": "flutter_social_media_ui",
+  "appTitle": "Ulearna",
   "@appTitle": {
     "description": "The title of the application"
+  },
+  "tapToPlay": "Tap to play",
+  "@tapToPlay": {
+    "description": "Tap to play description"
+  },
+  "feedStrings": "Liked By : and: others",
+  "@feedStrings": {
+    "description": "Tap to play description"
+  },
+  "reelsText": "Reels",
+  "@reelsText": {
+    "description": "reels text"
+  },
+  "followText": "Follow",
+  "@followText": {
+    "description": "follow text"
+  },
+  "followingText": "Following",
+  "@followingText": {
+    "description": "following text"
   }
 }

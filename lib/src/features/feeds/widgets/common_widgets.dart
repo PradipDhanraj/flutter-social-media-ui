@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/round_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Column likeShareCommentSave(Datum data) {
   return Column(
@@ -57,9 +58,9 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                     },
                     child: const Icon(CupertinoIcons.arrow_left, color: Colors.white)),
                 const SizedBox(width: 20),
-                const Text(
-                  'Reels',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.reelsText,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.normal,
                     color: Colors.white,
@@ -97,7 +98,9 @@ class _CommentWithPublisherState extends State<CommentWithPublisher> {
                     Padding(
                       padding: const EdgeInsets.only(right: 40),
                       child: Text(
-                        widget.datumData.isFollow ? 'Following' : 'Follow',
+                        widget.datumData.isFollow
+                            ? AppLocalizations.of(context)!.followingText
+                            : AppLocalizations.of(context)!.followText,
                         style: textStyle.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
