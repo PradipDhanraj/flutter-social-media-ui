@@ -39,7 +39,7 @@ Generated Build is attached in the release section of this repository, under the
 
 ## Sample Video
 
- [Sample Video]()
+ [Sample Video](https://streamable.com/4qfayr)
 
 ---
 
