@@ -31,7 +31,10 @@ class AppRoutes {
         return MaterialPageRoute(
             settings: settings,
             builder: (context) {
-              return const Feeds();
+              return BlocProvider(
+                create: (context) => FeedsBloc(),
+                child: const Feeds(),
+              );
             });
     }
   }

@@ -17,27 +17,21 @@ This Flutter application fetches and displays video data from an API, mimicking 
 
 1. **Clone the repository**:
    ```bash
-   
-
-2. **Add .env in the root directory**:   
-      Add .env in the root directory, and and the same **reelsApiBaseUrl=example_base_url.com** , also mentioned in the .env.example you will find in the root directory.
+   git clone git@github.com:PradipDhanraj/flutter-social-media-ui.git
 
 1. **Simply Run**:
    Now Simply Run the application in application by running comand or the defualt running tool for you IDE
    ```bash
-   flutter run    
-
-
+   flutter run --dart-define isMock=false --dart-define url=https://api.ulearna.com
+   OR
+   Run the application from VSCODE RUN AND DEBUG option, launch.json will have all the neccessary secret environmental variables.
 ---
 
 ## Generating Build
 
-
 Generated Build is attached in the release section of this repository, under the **Debug-Build** **v1.0** , You can check the right side of the repo.
 
 **NOTE:** This is the debug build thats why you may see large build size
-
-
 
 ---
 
@@ -72,3 +66,10 @@ Generated Build is attached in the release section of this repository, under the
 ## Folder Structure
 
 The project uses a **modular architecture** for better scalability and code management
+
+## Generate app icon
+   Add icon image in assets folder
+      assets/icon/<ADD-YOUR_ICON>
+   also update path in pubspec.yaml   
+  ```bash
+   flutter pub run flutter_launcher_icons  
