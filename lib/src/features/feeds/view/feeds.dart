@@ -6,6 +6,7 @@ import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
 import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
@@ -124,21 +125,18 @@ class PostWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                feedItem.user.profilePictureCdn != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image(
-                          image: NetworkImage(feedItem.user.profilePictureCdn!),
-                          width: 40,
-                          height: 40,
-                          fit: BoxFit.fitWidth,
-                        ),
-                      )
-                    : Icon(
-                        CupertinoIcons.person_alt_circle_fill,
-                        color: AppColors.imageColor,
-                        size: 40,
-                      ),
+                CacheImage(
+                  imageUrl: feedItem.user.profilePictureCdn,
+                  height: 40,
+                  width: 40,
+                  imageId: "${feedItem.user.userId}",
+                  cacheinDays: 10,
+                  placeholder: Icon(
+                    CupertinoIcons.person_alt_circle_fill,
+                    color: AppColors.imageColor,
+                    size: 40,
+                  ),
+                ),
                 const SizedBox(
                   width: 10,
                 ),
