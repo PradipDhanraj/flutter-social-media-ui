@@ -88,7 +88,8 @@ class ReelsState extends State<Reels> {
         autoPlay: true,
         looping: true,
         autoInitialize: true,
-        showControls: false,
+        showControls: true,
+        controlsSafeAreaMinimum: const EdgeInsets.only(bottom: 130),
         aspectRatio: videoPlayerController.value.aspectRatio,
         cupertinoProgressColors: ChewieProgressColors(),
       );

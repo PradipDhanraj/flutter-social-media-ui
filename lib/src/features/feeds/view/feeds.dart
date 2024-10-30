@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
@@ -197,15 +198,29 @@ class PostWidget extends StatelessWidget {
               Reels.routeName,
               arguments: feedItem,
             ),
-            child: CacheImage(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              cacheDurationDays: 1,
-              hasBorder: false,
-              imageId: feedItem.thumbCdnUrl!,
-              imageUrl: feedItem.thumbCdnUrl,
-              shape: BoxShape.rectangle,
-              aspectRatio: feedItem.videoAspectRatio,
+            child: Stack(
+              children: [
+                CacheImage(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  cacheDurationDays: 1,
+                  hasBorder: false,
+                  imageId: feedItem.thumbCdnUrl!,
+                  imageUrl: feedItem.thumbCdnUrl,
+                  shape: BoxShape.rectangle,
+                  aspectRatio: feedItem.videoAspectRatio,
+                ),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Text((feedItem.duration / 60).toStringAsFixed(2)),
+                    ),
+                  ),
+                )
+              ],
             ),
             // child: FadeInImage(
             //   image: NetworkImage(feedItem.thumbCdnUrl ?? ""),
