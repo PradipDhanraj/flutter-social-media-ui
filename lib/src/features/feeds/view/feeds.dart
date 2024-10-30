@@ -7,7 +7,6 @@ import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart'
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
-import 'package:flutter_social_media_ui/src/features/settings/settings_view.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -37,9 +36,7 @@ class _FeedsState extends State<Feeds> {
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: InkWell(
-              onTap: () {
-                AppNavigation.navigateTo(SettingsView.routeName);
-              },
+              onTap: () {},
               child: Icon(
                 CupertinoIcons.line_horizontal_3,
                 size: AppFontSizes.iconSmallSize,
@@ -159,32 +156,35 @@ class PostWidget extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                Shimmer.fromColors(
-                  baseColor: AppColors.textColor,
-                  highlightColor: Colors.black,
-                  enabled: true,
-                  period: Durations.extralong4,
-                  child: Row(
-                    children: [
-                      Text(
-                        'Tap to play',
-                        style: TextStyle(
-                          color: AppColors.textColor,
+                InkWell(
+                  onTap: () {
+                    AppNavigation.navigateTo(
+                      Reels.routeName,
+                      arguments: feedItem,
+                    );
+                  },
+                  child: Shimmer.fromColors(
+                    baseColor: AppColors.textColor,
+                    highlightColor: Colors.black,
+                    enabled: true,
+                    period: Durations.extralong4,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Tap to play',
+                          style: TextStyle(
+                            color: AppColors.textColor,
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.play_circle_fill_outlined,
-                          color: AppColors.imageColor,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Icon(
+                            Icons.play_circle_fill_outlined,
+                            color: AppColors.imageColor,
+                          ),
                         ),
-                        onPressed: () {
-                          AppNavigation.navigateTo(
-                            Reels.routeName,
-                            arguments: feedItem,
-                          );
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

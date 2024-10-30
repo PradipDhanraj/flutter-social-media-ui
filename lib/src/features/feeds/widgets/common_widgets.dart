@@ -36,9 +36,10 @@ Column iconDetail(IconData icon, String number, {bool isTapped = false}) {
 
 class CommentWithPublisher extends StatefulWidget {
   final Datum datumData;
-  CommentWithPublisher(this.datumData, {super.key});
+  const CommentWithPublisher(this.datumData, {super.key});
+
   @override
-  _CommentWithPublisherState createState() => _CommentWithPublisherState();
+  State<CommentWithPublisher> createState() => _CommentWithPublisherState();
 }
 
 class _CommentWithPublisherState extends State<CommentWithPublisher> {
