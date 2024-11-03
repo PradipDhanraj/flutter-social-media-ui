@@ -169,7 +169,7 @@ class PostWidget extends StatelessWidget {
                     baseColor: AppColors.textColor,
                     highlightColor: Colors.black,
                     enabled: true,
-                    period: Durations.extralong4,
+                    period: const Duration(seconds: 3),
                     child: Row(
                       children: [
                         Text(
@@ -233,28 +233,58 @@ class PostWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.heart,
-                      color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
+                  const SizedBox(width: 10),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(
+                        CupertinoIcons.heart,
+                        color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
+                      ),
+                      Text(
+                        "${feedItem.totalLikes}",
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          CupertinoIcons.videocam_circle_fill,
+                          color: AppColors.imageColor,
+                        ),
+                        Text(
+                          "${feedItem.totalViews}",
+                        ),
+                      ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.chat_bubble,
-                      color: AppColors.imageColor,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.arrow_turn_up_right,
-                      color: AppColors.imageColor,
-                    ),
-                  ),
+                  feedItem.isHideComment != 0
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              CupertinoIcons.chat_bubble,
+                              color: AppColors.imageColor,
+                            ),
+                            Text(
+                              "${feedItem.totalComments}",
+                            ),
+                          ],
+                        )
+                      : const SizedBox(
+                          width: 0,
+                          height: 0,
+                        ),
                 ],
               ),
               IconButton(
@@ -267,64 +297,25 @@ class PostWidget extends StatelessWidget {
             ],
           ),
 
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 14,
-            ),
-            child: RichText(
-              softWrap: true,
-              overflow: TextOverflow.visible,
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.feedStrings.split(":").first,
-                    style: TextStyle(color: AppColors.textColor),
-                  ),
-                  TextSpan(
-                    text: "${feedItem.totalLikes}",
-                    style: TextStyle(
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.feedStrings.split(":")[1],
-                    style: TextStyle(
-                      color: AppColors.textColor,
-                    ),
-                  ),
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.feedStrings.split(":").last,
-                    style: TextStyle(
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
           // caption
           Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(
               horizontal: 14,
-              vertical: 5,
+              vertical: 0,
             ),
             child: RichText(
               softWrap: true,
               overflow: TextOverflow.visible,
               text: TextSpan(
                 children: [
-                  TextSpan(
-                    text: feedItem.user.username,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
-                    ),
-                  ),
+                  // TextSpan(
+                  //   text: feedItem.user.username,
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //     color: AppColors.textColor,
+                  //   ),
+                  // ),
                   TextSpan(
                     text: " ${feedItem.title}",
                     style: TextStyle(
@@ -338,8 +329,10 @@ class PostWidget extends StatelessWidget {
 
           // post date
           Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 14,
+            margin: const EdgeInsets.only(
+              left: 14,
+              right: 14,
+              bottom: 20,
             ),
             alignment: Alignment.topLeft,
             child: Text(

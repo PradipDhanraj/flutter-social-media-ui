@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_social_media_ui/src/common/secrets.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/feeds_repo.dart';
@@ -38,11 +39,15 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
     try {
       var data = await reelsRepository.loadFeeds(page: event.page, limit: event.limit);
       emit(state.copyWith(feedItems: data?.feed.data, page: event.page, limit: event.limit));
-      if (kDebugMode) {
-        print(data);
-      }
     } catch (e) {
-      print(e);
+      var result = await EnvironmentSecretsService.appSecretService();
+      emit(
+        state.copyWith(
+          feedItems: result.feed.data,
+          page: event.page,
+          limit: event.limit,
+        ),
+      );
     }
   }
 }

@@ -7,10 +7,6 @@
   "@tapToPlay": {
     "description": "Tap to play description"
   },
-  "feedStrings": "Liked By : and: others",
-  "@feedStrings": {
-    "description": "Tap to play description"
-  },
   "reelsText": "Reels",
   "@reelsText": {
     "description": "reels text"
