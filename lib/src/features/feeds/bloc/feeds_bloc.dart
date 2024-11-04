@@ -49,7 +49,8 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
       for (var element in result.feed.data) {
         var item = dbItems.where((p0) => p0.contentId == (element.id)).singleOrNull;
         if (item != null) {
-          element.isLiked = item.isLiked!;
+          element.isLiked = item.isLiked ?? false;
+          element.isWished = item.isWished ?? false;
         }
       }
       emit(
@@ -75,6 +76,7 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
               contentId: Value(event.feedData.id),
               userId: Value(event.feedData.userId),
               isLiked: Value(event.feedData.isLiked),
+              isWished: Value(event.feedData.isWished),
             ),
           ).then(
             (value) {
@@ -96,6 +98,7 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
               contentId: Value(event.feedData.id),
               userId: Value(event.feedData.userId),
               isLiked: Value(event.feedData.isLiked),
+              isWished: Value(event.feedData.isWished),
             ),
           )
               .onError(

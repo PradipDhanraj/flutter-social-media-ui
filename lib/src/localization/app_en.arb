@@ -18,5 +18,13 @@
   "followingText": "Following",
   "@followingText": {
     "description": "following text"
+  },
+  "wishedText": "Wished",
+  "@wishedText": {
+    "description": "Wished text"
+  },
+  "addToWishListText": "Add to Wishlist",
+  "@addToWishListText": {
+    "description": "Add to Wishlist text"
   }
 }

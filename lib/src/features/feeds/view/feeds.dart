@@ -246,7 +246,7 @@ class PostWidget extends StatelessWidget {
                         },
                         child: Icon(
                           key: ValueKey(feedItem.isLiked),
-                          CupertinoIcons.heart,
+                          feedItem.isLiked ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
                           color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
                         ),
                       ),
@@ -293,12 +293,24 @@ class PostWidget extends StatelessWidget {
                         ),
                 ],
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  !feedItem.isWished ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,
-                  color: AppColors.imageColor,
-                ),
+              Row(
+                children: [
+                  Text(
+                    feedItem.isWished
+                        ? AppLocalizations.of(context)!.wishedText
+                        : AppLocalizations.of(context)!.addToWishListText,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      feedItem.isWished = !feedItem.isWished;
+                      context.read<FeedsBloc>().add(UpdateReelsInformationEvent(feedItem));
+                    },
+                    icon: Icon(
+                      !feedItem.isWished ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,
+                      color: AppColors.imageColor,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
