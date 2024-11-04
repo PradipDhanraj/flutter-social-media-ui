@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
-import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/round_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

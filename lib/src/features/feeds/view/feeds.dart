@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
+import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
-import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
+import 'package:flutter_social_media_ui/src/features/settings/view/settings_page.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,7 +39,9 @@ class _FeedsState extends State<Feeds> {
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                AppNavigation.navigateTo(SettingsPage.routeName);
+              },
               child: Icon(
                 CupertinoIcons.line_horizontal_3,
                 size: AppFontSizes.iconSmallSize,

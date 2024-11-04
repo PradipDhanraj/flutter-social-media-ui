@@ -1,6 +1,6 @@
 import 'package:flutter_social_media_ui/src/common/constants.dart';
 import 'package:flutter_social_media_ui/src/common/services/network-service/network_service.dart';
-import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 
 abstract class ReelsRepository extends NetworkService {
   Future<FeedData?> loadFeeds({int page = 1, int limit = 10});

@@ -7,7 +7,8 @@ class AppColors {
 }
 
 class AppFontSizes {
-  static double get textSize => 13;
+  static double get textSmallSize => 13;
+  static double get textLargeSize => 35;
   static double get iconSmallSize => 30;
   static double get iconMediumSize => 40;
 }

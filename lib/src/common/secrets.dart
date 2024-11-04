@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_social_media_ui/src/features/feeds/models/feeds_model.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 
 class EnvironmentSecretsService {
   static Future<FeedData> appSecretService() async {
