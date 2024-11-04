@@ -1,16 +1,17 @@
 part of 'feeds_bloc.dart';
 
-class FeedsState {
+class FeedsState
+//extends Equatable
+{
   final List<Datum> feedItems;
   final int page;
   final int limit;
-  FeedsState({this.feedItems = const [], this.page = 1, this.limit = 10});
+  final bool isLoading;
+  FeedsState({this.feedItems = const [], this.page = 1, this.limit = 10, this.isLoading = false});
 
-  FeedsState copyWith({List<Datum>? feedItems, int? page, int? limit}) {
+  FeedsState copyWith({List<Datum>? newFeedItems, int? page, int? limit}) {
     var latestFeeds = <Datum>[];
-    if (feedItems != null) {
-      latestFeeds = [...this.feedItems, ...feedItems];
-    }
+    latestFeeds = [...feedItems, ...(newFeedItems ?? [])];
     return FeedsState(
       feedItems: latestFeeds,
       limit: limit ?? this.limit,

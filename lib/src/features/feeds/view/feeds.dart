@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
@@ -240,9 +239,16 @@ class PostWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        CupertinoIcons.heart,
-                        color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
+                      InkWell(
+                        onTap: () {
+                          feedItem.isLiked = !feedItem.isLiked;
+                          context.read<FeedsBloc>().add(UpdateReelsInformationEvent(feedItem));
+                        },
+                        child: Icon(
+                          key: ValueKey(feedItem.isLiked),
+                          CupertinoIcons.heart,
+                          color: feedItem.isLiked ? Colors.red : AppColors.imageColor,
+                        ),
                       ),
                       Text(
                         "${feedItem.totalLikes}",

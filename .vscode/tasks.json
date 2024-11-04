@@ -9,9 +9,16 @@
             "problemMatcher": [
                 "$tsc"
             ],
-            "presentation": {
-                "reveal": "always"
-            },
+            "group": "build"
+        },
+        {
+            "label": "prelaunch task",
+            "command": "dart run build_runner build",
+            "type": "shell",
+            "args": [],
+            "problemMatcher": [
+                "$tsc"
+            ],
             "group": "build"
         }
     ]
