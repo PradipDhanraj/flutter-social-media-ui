@@ -1,4 +1,6 @@
-# Flutter Reels Application
+# Flutter Reels Application -> Complete app with Drift Database and settings page. 
+- Drift db used to save user wishlist and liked content
+- Added settings page to access wishlist and liked content list.
 
 ## Overview
 This Flutter application fetches and displays video data from an API, mimicking the reels experience with smooth scrolling and pagination. The app is designed with clean architecture, separating UI and business logic, and includes features like lazy loading, error handling, and more.
