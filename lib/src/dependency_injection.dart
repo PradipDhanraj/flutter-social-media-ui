@@ -2,7 +2,9 @@ import 'package:drift/drift.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/database.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/base_db_service.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/feed-db-helper/feed_db_helper.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/feeds_repo.dart';
+import 'package:flutter_social_media_ui/src/features/settings/bloc/settings_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class DIContainer {
@@ -20,5 +22,8 @@ class DIContainer {
 
     // services
     DI.registerSingleton<FeedTableDBHelper>(FeedTableDBHelper(db));
+
+    //blocs
+    DI.registerSingleton<FeedsBloc>(FeedsBloc());
   }
 }

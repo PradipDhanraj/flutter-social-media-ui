@@ -71,6 +71,22 @@ class $FeedTableTable extends FeedTable
   late final GeneratedColumn<int> hideComment = GeneratedColumn<int>(
       'hide_comment', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
+  late final GeneratedColumn<String> url = GeneratedColumn<String>(
+      'url', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _usernameMeta =
+      const VerificationMeta('username');
+  @override
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+      'username', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -80,7 +96,10 @@ class $FeedTableTable extends FeedTable
         isSaved,
         isFollow,
         isWished,
-        hideComment
+        hideComment,
+        title,
+        url,
+        username
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -129,6 +148,18 @@ class $FeedTableTable extends FeedTable
           hideComment.isAcceptableOrUnknown(
               data['hide_comment']!, _hideCommentMeta));
     }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    }
+    if (data.containsKey('url')) {
+      context.handle(
+          _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+    }
+    if (data.containsKey('username')) {
+      context.handle(_usernameMeta,
+          username.isAcceptableOrUnknown(data['username']!, _usernameMeta));
+    }
     return context;
   }
 
@@ -154,6 +185,12 @@ class $FeedTableTable extends FeedTable
           .read(DriftSqlType.bool, data['${effectivePrefix}is_wished']),
       hideComment: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}hide_comment']),
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title']),
+      url: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}url']),
+      username: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}username']),
     );
   }
 
@@ -172,6 +209,9 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
   final bool? isFollow;
   final bool? isWished;
   final int? hideComment;
+  final String? title;
+  final String? url;
+  final String? username;
   const FeedTableData(
       {required this.id,
       required this.contentId,
@@ -180,7 +220,10 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
       this.isSaved,
       this.isFollow,
       this.isWished,
-      this.hideComment});
+      this.hideComment,
+      this.title,
+      this.url,
+      this.username});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -201,6 +244,15 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
     }
     if (!nullToAbsent || hideComment != null) {
       map['hide_comment'] = Variable<int>(hideComment);
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String>(url);
+    }
+    if (!nullToAbsent || username != null) {
+      map['username'] = Variable<String>(username);
     }
     return map;
   }
@@ -225,6 +277,12 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
       hideComment: hideComment == null && nullToAbsent
           ? const Value.absent()
           : Value(hideComment),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
+      username: username == null && nullToAbsent
+          ? const Value.absent()
+          : Value(username),
     );
   }
 
@@ -240,6 +298,9 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
       isFollow: serializer.fromJson<bool?>(json['isFollow']),
       isWished: serializer.fromJson<bool?>(json['isWished']),
       hideComment: serializer.fromJson<int?>(json['hideComment']),
+      title: serializer.fromJson<String?>(json['title']),
+      url: serializer.fromJson<String?>(json['url']),
+      username: serializer.fromJson<String?>(json['username']),
     );
   }
   @override
@@ -254,6 +315,9 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
       'isFollow': serializer.toJson<bool?>(isFollow),
       'isWished': serializer.toJson<bool?>(isWished),
       'hideComment': serializer.toJson<int?>(hideComment),
+      'title': serializer.toJson<String?>(title),
+      'url': serializer.toJson<String?>(url),
+      'username': serializer.toJson<String?>(username),
     };
   }
 
@@ -265,7 +329,10 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
           Value<bool?> isSaved = const Value.absent(),
           Value<bool?> isFollow = const Value.absent(),
           Value<bool?> isWished = const Value.absent(),
-          Value<int?> hideComment = const Value.absent()}) =>
+          Value<int?> hideComment = const Value.absent(),
+          Value<String?> title = const Value.absent(),
+          Value<String?> url = const Value.absent(),
+          Value<String?> username = const Value.absent()}) =>
       FeedTableData(
         id: id ?? this.id,
         contentId: contentId ?? this.contentId,
@@ -275,6 +342,9 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
         isFollow: isFollow.present ? isFollow.value : this.isFollow,
         isWished: isWished.present ? isWished.value : this.isWished,
         hideComment: hideComment.present ? hideComment.value : this.hideComment,
+        title: title.present ? title.value : this.title,
+        url: url.present ? url.value : this.url,
+        username: username.present ? username.value : this.username,
       );
   FeedTableData copyWithCompanion(FeedTableCompanion data) {
     return FeedTableData(
@@ -287,6 +357,9 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
       isWished: data.isWished.present ? data.isWished.value : this.isWished,
       hideComment:
           data.hideComment.present ? data.hideComment.value : this.hideComment,
+      title: data.title.present ? data.title.value : this.title,
+      url: data.url.present ? data.url.value : this.url,
+      username: data.username.present ? data.username.value : this.username,
     );
   }
 
@@ -300,14 +373,17 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
           ..write('isSaved: $isSaved, ')
           ..write('isFollow: $isFollow, ')
           ..write('isWished: $isWished, ')
-          ..write('hideComment: $hideComment')
+          ..write('hideComment: $hideComment, ')
+          ..write('title: $title, ')
+          ..write('url: $url, ')
+          ..write('username: $username')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, contentId, userId, isLiked, isSaved, isFollow, isWished, hideComment);
+  int get hashCode => Object.hash(id, contentId, userId, isLiked, isSaved,
+      isFollow, isWished, hideComment, title, url, username);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -319,7 +395,10 @@ class FeedTableData extends DataClass implements Insertable<FeedTableData> {
           other.isSaved == this.isSaved &&
           other.isFollow == this.isFollow &&
           other.isWished == this.isWished &&
-          other.hideComment == this.hideComment);
+          other.hideComment == this.hideComment &&
+          other.title == this.title &&
+          other.url == this.url &&
+          other.username == this.username);
 }
 
 class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
@@ -331,6 +410,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
   final Value<bool?> isFollow;
   final Value<bool?> isWished;
   final Value<int?> hideComment;
+  final Value<String?> title;
+  final Value<String?> url;
+  final Value<String?> username;
   const FeedTableCompanion({
     this.id = const Value.absent(),
     this.contentId = const Value.absent(),
@@ -340,6 +422,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
     this.isFollow = const Value.absent(),
     this.isWished = const Value.absent(),
     this.hideComment = const Value.absent(),
+    this.title = const Value.absent(),
+    this.url = const Value.absent(),
+    this.username = const Value.absent(),
   });
   FeedTableCompanion.insert({
     this.id = const Value.absent(),
@@ -350,6 +435,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
     this.isFollow = const Value.absent(),
     this.isWished = const Value.absent(),
     this.hideComment = const Value.absent(),
+    this.title = const Value.absent(),
+    this.url = const Value.absent(),
+    this.username = const Value.absent(),
   })  : contentId = Value(contentId),
         userId = Value(userId);
   static Insertable<FeedTableData> custom({
@@ -361,6 +449,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
     Expression<bool>? isFollow,
     Expression<bool>? isWished,
     Expression<int>? hideComment,
+    Expression<String>? title,
+    Expression<String>? url,
+    Expression<String>? username,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -371,6 +462,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
       if (isFollow != null) 'is_follow': isFollow,
       if (isWished != null) 'is_wished': isWished,
       if (hideComment != null) 'hide_comment': hideComment,
+      if (title != null) 'title': title,
+      if (url != null) 'url': url,
+      if (username != null) 'username': username,
     });
   }
 
@@ -382,7 +476,10 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
       Value<bool?>? isSaved,
       Value<bool?>? isFollow,
       Value<bool?>? isWished,
-      Value<int?>? hideComment}) {
+      Value<int?>? hideComment,
+      Value<String?>? title,
+      Value<String?>? url,
+      Value<String?>? username}) {
     return FeedTableCompanion(
       id: id ?? this.id,
       contentId: contentId ?? this.contentId,
@@ -392,6 +489,9 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
       isFollow: isFollow ?? this.isFollow,
       isWished: isWished ?? this.isWished,
       hideComment: hideComment ?? this.hideComment,
+      title: title ?? this.title,
+      url: url ?? this.url,
+      username: username ?? this.username,
     );
   }
 
@@ -422,6 +522,15 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
     if (hideComment.present) {
       map['hide_comment'] = Variable<int>(hideComment.value);
     }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String>(url.value);
+    }
+    if (username.present) {
+      map['username'] = Variable<String>(username.value);
+    }
     return map;
   }
 
@@ -435,7 +544,10 @@ class FeedTableCompanion extends UpdateCompanion<FeedTableData> {
           ..write('isSaved: $isSaved, ')
           ..write('isFollow: $isFollow, ')
           ..write('isWished: $isWished, ')
-          ..write('hideComment: $hideComment')
+          ..write('hideComment: $hideComment, ')
+          ..write('title: $title, ')
+          ..write('url: $url, ')
+          ..write('username: $username')
           ..write(')'))
         .toString();
   }
@@ -461,6 +573,9 @@ typedef $$FeedTableTableCreateCompanionBuilder = FeedTableCompanion Function({
   Value<bool?> isFollow,
   Value<bool?> isWished,
   Value<int?> hideComment,
+  Value<String?> title,
+  Value<String?> url,
+  Value<String?> username,
 });
 typedef $$FeedTableTableUpdateCompanionBuilder = FeedTableCompanion Function({
   Value<int> id,
@@ -471,6 +586,9 @@ typedef $$FeedTableTableUpdateCompanionBuilder = FeedTableCompanion Function({
   Value<bool?> isFollow,
   Value<bool?> isWished,
   Value<int?> hideComment,
+  Value<String?> title,
+  Value<String?> url,
+  Value<String?> username,
 });
 
 class $$FeedTableTableTableManager extends RootTableManager<
@@ -498,6 +616,9 @@ class $$FeedTableTableTableManager extends RootTableManager<
             Value<bool?> isFollow = const Value.absent(),
             Value<bool?> isWished = const Value.absent(),
             Value<int?> hideComment = const Value.absent(),
+            Value<String?> title = const Value.absent(),
+            Value<String?> url = const Value.absent(),
+            Value<String?> username = const Value.absent(),
           }) =>
               FeedTableCompanion(
             id: id,
@@ -508,6 +629,9 @@ class $$FeedTableTableTableManager extends RootTableManager<
             isFollow: isFollow,
             isWished: isWished,
             hideComment: hideComment,
+            title: title,
+            url: url,
+            username: username,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -518,6 +642,9 @@ class $$FeedTableTableTableManager extends RootTableManager<
             Value<bool?> isFollow = const Value.absent(),
             Value<bool?> isWished = const Value.absent(),
             Value<int?> hideComment = const Value.absent(),
+            Value<String?> title = const Value.absent(),
+            Value<String?> url = const Value.absent(),
+            Value<String?> username = const Value.absent(),
           }) =>
               FeedTableCompanion.insert(
             id: id,
@@ -528,6 +655,9 @@ class $$FeedTableTableTableManager extends RootTableManager<
             isFollow: isFollow,
             isWished: isWished,
             hideComment: hideComment,
+            title: title,
+            url: url,
+            username: username,
           ),
         ));
 }
@@ -574,6 +704,21 @@ class $$FeedTableTableFilterComposer
       column: $state.table.hideComment,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get title => $state.composableBuilder(
+      column: $state.table.title,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get url => $state.composableBuilder(
+      column: $state.table.url,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get username => $state.composableBuilder(
+      column: $state.table.username,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
 class $$FeedTableTableOrderingComposer
@@ -616,6 +761,21 @@ class $$FeedTableTableOrderingComposer
 
   ColumnOrderings<int> get hideComment => $state.composableBuilder(
       column: $state.table.hideComment,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get title => $state.composableBuilder(
+      column: $state.table.title,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get url => $state.composableBuilder(
+      column: $state.table.url,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get username => $state.composableBuilder(
+      column: $state.table.username,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }

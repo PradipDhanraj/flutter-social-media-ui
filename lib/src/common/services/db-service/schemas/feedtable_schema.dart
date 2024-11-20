@@ -9,4 +9,8 @@ class FeedTable extends Table {
   BoolColumn get isFollow => boolean().nullable()();
   BoolColumn get isWished => boolean().nullable()();
   IntColumn get hideComment => integer().nullable()();
+  TextColumn get title => text().nullable()();
+  TextColumn get url => text().nullable()();
+  TextColumn get username => text().nullable()();
+  
 }

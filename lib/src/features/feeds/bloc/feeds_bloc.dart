@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social_media_ui/src/common/secrets.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/database.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/feed-db-helper/feed_db_helper.dart';
+import 'package:flutter_social_media_ui/src/common/utils.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/feeds_repo.dart';
@@ -43,10 +44,8 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
     try {
       var data = await reelsRepository.loadFeeds(page: event.page, limit: event.limit);
       emit(state.copyWith(newFeedItems: data?.feed.data, page: event.page, limit: event.limit));
-    } catch (e) {
-      var result = await EnvironmentSecretsService.appSecretService();
       var dbItems = await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData();
-      for (var element in result.feed.data) {
+      for (var element in data?.feed.data ?? []) {
         var item = dbItems.where((p0) => p0.contentId == (element.id)).singleOrNull;
         if (item != null) {
           element.isLiked = item.isLiked ?? false;
@@ -55,11 +54,13 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
       }
       emit(
         state.copyWith(
-          newFeedItems: result.feed.data,
+          newFeedItems: data?.feed.data ?? [],
           page: event.page,
           limit: event.limit,
         ),
       );
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -73,10 +74,13 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
               return p0.contentId.isValue(event.feedData.id);
             },
             FeedTableCompanion(
-              contentId: Value(event.feedData.id),
-              userId: Value(event.feedData.userId),
+              // contentId: Value(event.feedData.id),
+              // userId: Value(event.feedData.userId),
               isLiked: Value(event.feedData.isLiked),
               isWished: Value(event.feedData.isWished),
+              // title: Value(event.feedData.title),
+              // url: Value(event.feedData.url),
+              // username: Value(event.feedData.user.username),
             ),
           ).then(
             (value) {
@@ -99,6 +103,9 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
               userId: Value(event.feedData.userId),
               isLiked: Value(event.feedData.isLiked),
               isWished: Value(event.feedData.isWished),
+              title: Value(event.feedData.title),
+              url: Value(event.feedData.url),
+              username: Value(event.feedData.user.username),
             ),
           )
               .onError(

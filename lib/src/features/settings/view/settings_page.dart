@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_ui/src/common/app_navigation.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
+import 'package:flutter_social_media_ui/src/common/utils.dart';
+import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
 import 'package:flutter_social_media_ui/src/features/settings/bloc/settings_bloc.dart';
+import 'package:flutter_social_media_ui/src/features/settings/view/listing_page.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings';
@@ -14,6 +18,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  late SettingsBloc bloc;
   ListTile tileWidget({
     required String title,
     required String subtitle,
@@ -29,10 +34,17 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   @override
+  void initState() {
+    bloc = context.read<SettingsBloc>();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocBuilder<SettingsBloc, SettingsState>(
+      body: BlocConsumer<SettingsBloc, SettingsState>(
+        listener: (context, state) {},
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,13 +90,33 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: 'Wishlist',
                 subtitle: 'Wished content from library',
                 icon: CupertinoIcons.bookmark_fill,
-                onTap: () {},
+                onTap: () {
+                  bloc.add(
+                    NavigateToPage(
+                      ListingPage.routeName,
+                      const [
+                        'Wishlist',
+                        CategoryType.isWished,
+                      ],
+                    ),
+                  );
+                },
               ),
               tileWidget(
                 title: 'Liked Content',
                 subtitle: 'Liked content from library',
                 icon: CupertinoIcons.heart_circle_fill,
-                onTap: () {},
+                onTap: () {
+                  bloc.add(
+                    NavigateToPage(
+                      ListingPage.routeName,
+                      const [
+                        'Liked Content',
+                        CategoryType.isLiked,
+                      ],
+                    ),
+                  );
+                },
               ),
               const Spacer(),
               const SafeArea(
