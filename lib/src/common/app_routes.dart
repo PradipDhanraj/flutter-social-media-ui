@@ -5,8 +5,9 @@ import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feed
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/feeds.dart';
+import 'package:flutter_social_media_ui/src/features/listingPage/bloc/listing_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/settings/bloc/settings_bloc.dart';
-import 'package:flutter_social_media_ui/src/features/settings/view/listing_page.dart';
+import 'package:flutter_social_media_ui/src/features/listingPage/view/listing_page.dart';
 import 'package:flutter_social_media_ui/src/features/settings/view/settings_page.dart';
 
 class AppRoutes {
@@ -37,11 +38,8 @@ class AppRoutes {
             builder: (context) {
               return MultiBlocProvider(
                 providers: [
-                  // BlocProvider(
-                  //   create: (context) => DIContainer.DI.get<SettingsBloc>(),
-                  // ),
                   BlocProvider(
-                    create: (context) => DIContainer.DI.get<FeedsBloc>(),
+                    create: (context) => ListingBloc(),
                   ),
                 ],
                 child: const ListingPage(),

@@ -7,7 +7,7 @@ import 'package:flutter_social_media_ui/src/common/utils.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
 import 'package:flutter_social_media_ui/src/features/settings/bloc/settings_bloc.dart';
-import 'package:flutter_social_media_ui/src/features/settings/view/listing_page.dart';
+import 'package:flutter_social_media_ui/src/features/listingPage/view/listing_page.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings';

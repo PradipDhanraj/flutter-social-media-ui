@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_media_ui/src/common/app_theme_config.dart';
 import 'package:flutter_social_media_ui/src/common/services/db-service/database.dart';
@@ -9,6 +7,8 @@ import 'package:flutter_social_media_ui/src/common/utils.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/bloc/feeds_bloc.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/widgets/cache_image_widget.dart';
+import 'package:flutter_social_media_ui/src/features/listingPage/bloc/listing_bloc.dart';
+import 'package:flutter_social_media_ui/src/features/settings/bloc/settings_bloc.dart';
 
 class ListingPage extends StatefulWidget {
   static const routeName = "listingpage";
@@ -74,17 +74,25 @@ class _ListingPageState extends State<ListingPage> {
               onTap: () {
                 switch (category) {
                   case CategoryType.isLiked:
-                    //feed.isLiked = ;
+                    context.read<ListingBloc>().add(
+                          UpdateDBEvent(
+                            feed.id,
+                            isLiked: false,
+                            isWished: feed.isWished!,
+                          ),
+                        );
                     break;
                   case CategoryType.isWished:
-                    //feed.isWished = false;
+                    context.read<ListingBloc>().add(
+                          UpdateDBEvent(
+                            feed.id,
+                            isLiked: feed.isLiked!,
+                            isWished: false,
+                          ),
+                        );
                     break;
                   default:
                 }
-                // UpdateReelsInformationEvent? updateReelsInformationEvent = UpdateReelsInformationEvent(
-                //   feed,
-                // );
-                //context.read<FeedsBloc>().add(updateReelsInformationEvent);
               },
               child: Icon(
                 CupertinoIcons.delete_solid,

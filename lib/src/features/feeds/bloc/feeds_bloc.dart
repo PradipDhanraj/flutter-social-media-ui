@@ -42,7 +42,8 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
 
   FutureOr<void> loadFeedData(LoadsFeedsEvent event, Emitter<FeedsState> emit) async {
     try {
-      var data = await reelsRepository.loadFeeds(page: event.page, limit: event.limit);
+      //var data = await reelsRepository.loadFeeds(page: event.page, limit: event.limit);
+      FeedData? data = await EnvironmentSecretsService.appSecretService();
       emit(state.copyWith(newFeedItems: data?.feed.data, page: event.page, limit: event.limit));
       var dbItems = await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData();
       for (var element in data?.feed.data ?? []) {
@@ -115,6 +116,22 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
           );
           emit(state.copyWith());
         }
+
+        // switch (event.fromSettings) {
+        //   case true:
+        //     //var updatedData = value!.copyWith(isLiked: Value(event.isLiked), isWished: Value(event.isWished));
+        //     await feedTableDBHelper.updateDataWithWhereCondition(
+        //       (p0) => p0.id.isValue(event.feedData.id),
+        //       FeedTableCompanion(
+        //         id: Value(value!.id),
+        //         contentId: Value(value.contentId),
+        //         isLiked: Value(event.isLiked),
+        //         isWished: Value(event.isWished),
+        //       ),
+        //     );
+        //     break;
+        //   default:
+        // }
       },
     );
   }

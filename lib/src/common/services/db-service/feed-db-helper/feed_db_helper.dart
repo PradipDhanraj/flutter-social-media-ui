@@ -27,6 +27,10 @@ class FeedTableDBHelper extends BaseDBService {
     return db.select(db.feedTable).watch();
   }
 
+  Future<int> deleteEntry(int id) {
+    return (db.delete(db.feedTable)..where((t) => t.id.isValue(id))).go();
+  }
+
   Future<int> updateDataWithWhereCondition(
     Expression<bool> Function($FeedTableTable) filter,
     FeedTableCompanion data,

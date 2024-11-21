@@ -11,5 +11,13 @@ class LoadsFeedsEvent extends ReelsEvent {
 
 class UpdateReelsInformationEvent extends ReelsEvent {
   final Datum feedData;
-  UpdateReelsInformationEvent(this.feedData);
+  final bool fromSettings;
+  final bool isLiked;
+  final bool isWished;
+  UpdateReelsInformationEvent(
+    this.feedData, {
+    this.fromSettings = false,
+    this.isLiked = false,
+    this.isWished = false,
+  });
 }
