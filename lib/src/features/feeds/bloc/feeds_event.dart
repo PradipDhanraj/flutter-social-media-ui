@@ -3,6 +3,8 @@ part of 'feeds_bloc.dart';
 @immutable
 sealed class ReelsEvent {}
 
+class RefreshFeedsEvent extends ReelsEvent {}
+
 class LoadsFeedsEvent extends ReelsEvent {
   final int page;
   final int limit;

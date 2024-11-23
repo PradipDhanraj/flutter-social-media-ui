@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_ui/src/common/utils.dart';
 import 'package:flutter_social_media_ui/src/dependency_injection.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/repository/model/feeds_model.dart';
 import 'package:flutter_social_media_ui/src/features/feeds/view/reels.dart';
@@ -39,7 +40,7 @@ class AppRoutes {
               return MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (context) => ListingBloc(),
+                    create: (context) => ListingBloc(settings.arguments as CategoryType)..add(InitialData()),
                   ),
                 ],
                 child: const ListingPage(),

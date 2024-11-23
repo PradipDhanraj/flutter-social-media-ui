@@ -16,6 +16,10 @@ class FeedTableDBHelper extends BaseDBService {
     return db.select(db.feedTable).get();
   }
 
+  Future<List<FeedTableData>> getAllTableDataWithFilter(Expression<bool> Function($FeedTableTable) filter) {
+    return (db.select(db.feedTable)..where(filter)).get();
+  }
+
   Future<FeedTableData?> getSingleOrNull(Expression<bool> Function($FeedTableTable) filter) {
     return (db.select(db.feedTable)
           ..where(filter)

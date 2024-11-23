@@ -94,10 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   bloc.add(
                     NavigateToPage(
                       ListingPage.routeName,
-                      const [
-                        'Wishlist',
-                        CategoryType.isWished,
-                      ],
+                      CategoryType.isWished,
                     ),
                   );
                 },
@@ -110,10 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   bloc.add(
                     NavigateToPage(
                       ListingPage.routeName,
-                      const [
-                        'Liked Content',
-                        CategoryType.isLiked,
-                      ],
+                      CategoryType.isLiked,
                     ),
                   );
                 },

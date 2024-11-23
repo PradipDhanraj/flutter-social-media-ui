@@ -38,6 +38,7 @@ class FeedsBloc extends Bloc<ReelsEvent, FeedsState> {
     reelsRepository = DIContainer.DI.get<ReelsRepository>();
     on<LoadsFeedsEvent>(loadFeedData);
     on<UpdateReelsInformationEvent>(updateReelsInformationEvent);
+    on<RefreshFeedsEvent>((event, emit) => emit(state.copyWith()));
   }
 
   FutureOr<void> loadFeedData(LoadsFeedsEvent event, Emitter<FeedsState> emit) async {

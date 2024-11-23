@@ -38,25 +38,20 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }
   }
 
-  FutureOr<void> navigateToPageFuction(NavigateToPage event, Emitter<SettingsState> emit) async{
-    var args = event.args as List;
-    if (args.last as CategoryType == CategoryType.isWished) {
-      await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData().then(
-        (value) {
-          var lst = value.where((element) => element.isWished == true).toList();
-          var argsList = [...args, lst];
-          AppNavigation.navigateTo(event.routeName, arguments: argsList);
-        },
-      );
-    }
-    if (args.last as CategoryType == CategoryType.isLiked) {
-      await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData().then(
-        (value) {
-          var lst = value.where((element) => element.isLiked == true).toList();
-          var argsList = [...args, lst];
-          AppNavigation.navigateTo(event.routeName, arguments: argsList);
-        },
-      );
-    }
+  FutureOr<void> navigateToPageFuction(NavigateToPage event, Emitter<SettingsState> emit) async {
+    AppNavigation.navigateTo(event.routeName, arguments: event.args);
+    // if (args == CategoryType.isWished) {
+    //   AppNavigation.navigateTo(event.routeName, arguments: args);
+    //   // await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData().then(
+    //   //       (value) {},
+    //   //     );
+    // }
+    // if (args == CategoryType.isLiked) {
+    //   await DIContainer.DI.get<FeedTableDBHelper>().getAllTableData().then(
+    //     (value) {
+    //       AppNavigation.navigateTo(event.routeName, arguments: args);
+    //     },
+    //   );
+    // }
   }
 }
